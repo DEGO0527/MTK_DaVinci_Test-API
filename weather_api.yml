@@ -4,7 +4,7 @@ info:
   version: v1
   description: 台灣天氣API抓取
 servers:
-  - url: https://opendata.cwa.gov.tw/api
+  - url: https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001
 Authorization: CWA-FAE3A38C-1E3D-4EC7-838D-277D3AF4F1B0
 paths:
   /:
