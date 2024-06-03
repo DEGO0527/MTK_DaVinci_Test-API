@@ -1,0 +1,92 @@
+openapi: 3.0.0
+info:
+  title: WEATHER_API
+  version: v1
+  description: 台灣天氣API抓取
+servers:
+  - url: https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001
+    description: Central Weather Bureau Open Data API
+paths:
+  /:
+    get:
+      summary: Get Weather Data
+      description: Fetch weather data from the Central Weather Bureau.
+      parameters:
+        - name: Authorization
+          in: query
+          required: true
+          schema:
+            type: string
+            example: CWA-FAE3A38C-1E3D-4EC7-838D-277D3AF4F1B0
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  result:
+                    type: object
+                    properties:
+                      resource_id:
+                        type: string
+                      fields:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            type:
+                              type: string
+                            info:
+                              type: string
+                      records:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            datasetDescription:
+                              type: string
+                            location:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  locationName:
+                                    type: string
+                                  weatherElement:
+                                    type: array
+                                    items:
+                                      type: object
+                                      properties:
+                                        elementName:
+                                          type: string
+                                        time:
+                                          type: array
+                                          items:
+                                            type: object
+                                            properties:
+                                              startTime:
+                                                type: string
+                                                format: date-time
+                                              endTime:
+                                                type: string
+                                                format: date-time
+                                              parameter:
+                                                type: object
+                                                properties:
+                                                  parameterName:
+                                                    type: string
+                                                  parameterValue:
+                                                    type: string
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
